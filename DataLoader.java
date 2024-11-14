@@ -16,7 +16,6 @@ public class DataLoader {
                 String[] fields = CSV_PATTERN.split(line);
 
                 if (fields.length < 4) {
-                    System.err.println("Invalid line (skipped): " + line);
                     continue;
                 }
                 String productId = fields[0].replace("\"", "").trim();
@@ -24,18 +23,15 @@ public class DataLoader {
                 String category = fields[2].replace("\"", "").trim();
                 String priceField = fields[3].replace("\"", "").trim();
 
-                if (priceField.contains("-")) {
-                    System.err.println("Skipped product with price range for product ID " + productId + ": " + priceField);
-                    continue;
-                }
                 priceField = PRICE_CLEANER.matcher(priceField).replaceAll("");
                 double price;
-                try {
+
+                  try {
                     price = Double.parseDouble(priceField);
                 } catch (NumberFormatException e) {
-                    System.err.println("Invalid price for product ID " + productId + " (skipped): " + fields[3]);
-                    continue;  
+                    continue;
                 }
+
                 Product product = new Product(productId, name, category, price);
                 try {
                     tree.insert(product);
