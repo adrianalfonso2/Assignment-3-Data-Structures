@@ -1,10 +1,8 @@
-
 public class Product {
     private String productId;
     private String name;
     private String category;
     private double price;
-
     public Product(String productId, String name, String category, double price) {
         this.productId = productId;
         this.name = name;
